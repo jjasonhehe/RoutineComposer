@@ -17,7 +17,7 @@
     - Past competition routines
 
 ## Long-term Goals
-- NCAA CoP
+- NCAA COP
 - MAG
-- Past elite CoPs
-- Other CoPs
+- Past elite COPs
+- Other COPs
