@@ -8,6 +8,8 @@ from enum import Enum
 
 import pandas as pd
 
+from apparatus import Apparatus
+
 
 class Sport(Enum):
     """Sport of competition."""
@@ -26,21 +28,18 @@ class COP:
     """COP table loaded from Google Sheet.
     
     Attributes:
-        VERSIONS (dict): Spreadsheet and sheet IDs organized by sports, levels, and year ranges.
-        vt (pd.DataFrame): Table of vault elements.
-        ub (pd.DataFrame): Table of uneven bars elements.
-        bb (pd.DataFrame): Table of balance beam elements.
-        fx (pd.DataFrame): Table of floor exercise elements.
+        VERSIONS (dict): Spreadsheet and sheet IDs indexed by sports, levels, and year ranges.
+        table (dict): Tables of elements indexed by apparatus.
     """
     VERSIONS = {
         Sport.WAG: {
             Level.ELITE: {
                 '2022-2024': {
                     'sheet': '1wUqoO0gyoenjGfmjjfv9H43j6yspyeXeshkX3N1eoxM',
-                    'VT': '766515617',
-                    'UB': '0',
-                    'BB': '1712667509',
-                    'FX': '1161968013'
+                    Apparatus.VT: '766515617',
+                    Apparatus.UB: '0',
+                    Apparatus.BB: '1712667509',
+                    Apparatus.FX: '1161968013'
                 }
             }
         }
@@ -87,7 +86,5 @@ class COP:
         
         version = version[years]
         sheet_prefix = f'https://docs.google.com/spreadsheets/d/{version["sheet"]}/export?gid='
-        self.vt = pd.read_csv(f'{sheet_prefix}{version["VT"]}&format=csv')
-        self.ub = pd.read_csv(f'{sheet_prefix}{version["UB"]}&format=csv')
-        self.bb = pd.read_csv(f'{sheet_prefix}{version["BB"]}&format=csv')
-        self.fx = pd.read_csv(f'{sheet_prefix}{version["FX"]}&format=csv')
+        for apparatus in Apparatus:
+            self.table[apparatus] = pd.read_csv(f'{sheet_prefix}{version[apparatus]}&format=csv')
