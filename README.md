@@ -15,3 +15,9 @@
 - By-athlete view
     - Collection of skills they have trained and competed
     - Past competition routines
+
+## Long-term Goals
+- NCAA CoP
+- MAG
+- Past elite CoPs
+- Other CoPs
