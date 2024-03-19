@@ -74,17 +74,18 @@ class COP:
         elif start_year:
             find_start_year = [f'{start_year}-' in years for years in version.keys()]
             if any(find_start_year):
-                years = version.keys()[find_start_year.index(True)]
+                years = list(version.keys())[find_start_year.index(True)]
             else:
                 raise ValueError('Specified start_year does not correspond to a valid COP.')
         else:
             find_end_year = [f'-{end_year}' in years for years in version.keys()]
             if any(find_end_year):
-                years = version.keys()[find_end_year.index(True)]
+                years = list(version.keys())[find_end_year.index(True)]
             else:
                 raise ValueError('Specified end_year does not correspond to a valid COP.')
         
         version = version[years]
         sheet_prefix = f'https://docs.google.com/spreadsheets/d/{version["sheet"]}/export?gid='
+        self.table = {}
         for apparatus in Apparatus:
             self.table[apparatus] = pd.read_csv(f'{sheet_prefix}{version[apparatus]}&format=csv')
